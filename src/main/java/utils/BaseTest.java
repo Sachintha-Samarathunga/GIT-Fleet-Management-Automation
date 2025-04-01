@@ -24,7 +24,7 @@ public class BaseTest {
             browser = getUserBrowserInput();
         }
 
-        System.out.println("Selected Browser: " + browser);
+        
 
         switch (browser.toLowerCase()) {
             case "chrome":

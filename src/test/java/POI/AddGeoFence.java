@@ -32,7 +32,7 @@ public class AddGeoFence extends BaseTest {
         webSteps.click("addGeo_button");
         webSteps.click("Type_ploygon");
 
-        // choose the corniates for geofence
+        // choose the coordinates for geofence
         webSteps.clickOnPointOfMap(200, -110);
         webSteps.clickOnPointOfMap(238, -126);
         webSteps.clickOnPointOfMap(226, -168);
