@@ -32,6 +32,7 @@ public class AddGeoFence extends BaseTest {
         webSteps.click("addGeo_button");
         webSteps.click("Type_ploygon");
 
+        // choose the corniates for geofence
         webSteps.clickOnPointOfMap(200, -110);
         webSteps.clickOnPointOfMap(238, -126);
         webSteps.clickOnPointOfMap(226, -168);
@@ -45,7 +46,8 @@ public class AddGeoFence extends BaseTest {
     public void tearDownBrowser(ITestResult result) {
 
         if (result.getStatus() == ITestResult.FAILURE) {
-            ExtentReportManager.logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
+            ExtentReportManager
+                    .logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
         } else {
             ExtentReportManager.logPass("✅ <b><font color='green'> PASSED </font></b>");
         }
@@ -57,6 +59,6 @@ public class AddGeoFence extends BaseTest {
     @AfterSuite
     public void finalizeReport() {
         ExtentReportManager.flushReport(); // Ensures the report is generated
-        ExtentReportManager.openReport();  // Opens the report automatically
+        ExtentReportManager.openReport(); // Opens the report automatically
     }
 }
