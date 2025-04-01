@@ -24,8 +24,6 @@ public class BaseTest {
             browser = getUserBrowserInput();
         }
 
-        
-
         switch (browser.toLowerCase()) {
             case "chrome":
                 driver = new ChromeDriver();
