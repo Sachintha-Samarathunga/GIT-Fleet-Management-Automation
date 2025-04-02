@@ -1,9 +1,6 @@
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -22,6 +19,7 @@ public class webSteps {
     protected static WebDriver driver;
     private final String email;
     private final String password;
+
 
     public webSteps(WebDriver driver) {
         webSteps.driver = driver;
@@ -62,11 +60,35 @@ public class webSteps {
     public void clickOnPointOfMap(int x,int y) throws InterruptedException {
         By xpath = constructElement(findElementRepo("Main_Map"));
         WebElement map = driver.findElement(xpath);
+        Actions actions = new Actions(driver);
+
+        actions.moveToElement(map, x, y).click().perform();
+        waiting();
+    }
+
+    public void zoomInMap() throws InterruptedException {
+        By xpath = constructElement(findElementRepo("Main_Map"));
+        WebElement map = driver.findElement(xpath);
+
+        Actions actions = new Actions(driver);
+        for (int i = 0; i < 3; i++) {  // Adjust zoom level (increase/decrease iterations)
+            actions.moveToElement(map).sendKeys(Keys.chord(Keys.CONTROL, Keys.ADD)).perform();
+            Thread.sleep(1000);
+        }
+        waiting();
+        waiting();
+    }
+
+    public void dragTheMap(int x, int y) throws InterruptedException {
+        By xpath = constructElement(findElementRepo("Main_Map"));
+        WebElement map = driver.findElement(xpath);
 
         Actions actions = new Actions(driver);
         actions.moveToElement(map, x, y).click().perform();
         waiting();
+        waiting();
     }
+
 
     // Common method to get text from an element
     public String getText(String locator) {

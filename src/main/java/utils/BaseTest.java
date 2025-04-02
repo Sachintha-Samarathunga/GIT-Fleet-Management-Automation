@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import static dataProviders.configFileReader.getPropertyValue;
+
 public class BaseTest {
     protected static String browser = null;
     protected WebDriver driver;

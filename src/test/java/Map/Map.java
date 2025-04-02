@@ -1,5 +1,6 @@
 package Map;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -31,26 +32,20 @@ public class Map extends BaseTest {
     public void loginWithValidCredentials() throws InterruptedException {
         ExtentReportManager.testSteps("Verifying Map Controls...");
 
-        webSteps.click("Map");
-        webSteps.MoveMap("Map");
+        webSteps.zoomInMap();
+        webSteps.dragTheMap(300, 200);
+        driver.findElement(By.xpath("//div[contains(@style, 'touch-action: pan-x pan-y')]//child::img")).click();
+        webSteps.waiting();
     }
 
     @AfterMethod
     public void tearDownBrowser(ITestResult result) {
-
-        if (result.getStatus() == ITestResult.FAILURE) {
-            ExtentReportManager.logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
-        } else {
-            ExtentReportManager.logPass("✅ <b><font color='green'> PASSED </font></b>");
-        }
-
-        ExtentReportManager.captureScreenshot(driver, result);
-        tearDown();
+        configureTestReport(result);
     }
 
     @AfterSuite
     public void finalizeReport() {
-        ExtentReportManager.flushReport(); // Ensures the report is generated
-        ExtentReportManager.openReport();  // Opens the report automatically
+        ExtentReportManager.flushReport();
+        ExtentReportManager.openReport();
     }
 }
