@@ -21,7 +21,6 @@ public class BaseTest {
     protected webSteps webSteps;
 
     public void setUpBrowser() {
-        // Only ask for the browser if it's not already set
         if (browser == null) {
             browser = getUserBrowserInput();
         }
@@ -38,8 +37,6 @@ public class BaseTest {
                 break;
             default:
                 throw new RuntimeException("Browser is not supported: " + browser);
-                // Sample comment
-                // Sample comment 02
         }
     }
 
@@ -48,7 +45,7 @@ public class BaseTest {
         FileInputStream fis = new FileInputStream("src/main/resources/config.properties");
         properties.load(fis);
         baseUrl = properties.getProperty("baseUrl");
-        // Set up browser (this will only ask for user input once)
+
         setUpBrowser();
         webSteps = new webSteps(driver);
 

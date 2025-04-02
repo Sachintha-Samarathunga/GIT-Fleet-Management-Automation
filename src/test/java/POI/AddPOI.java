@@ -90,7 +90,7 @@ public class AddPOI extends BaseTest {
     @AfterSuite
     public void finalizeReport() {
         ExtentReportManager.flushReport();
-        ExtentReportManager.openReport();  
+        ExtentReportManager.openReport();
     }
 
 
