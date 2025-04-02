@@ -1,10 +1,12 @@
 package utils;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestResult;
 
 import javax.swing.*;
 import java.io.FileInputStream;
@@ -84,5 +86,17 @@ public class BaseTest {
         }
 
         return options[choice].toString().toLowerCase();
+    }
+
+    protected void configureTestReport(@NotNull ITestResult result){
+        if (result.getStatus() == ITestResult.FAILURE) {
+            ExtentReportManager
+                    .logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
+        } else {
+            ExtentReportManager.logPass("✅ <b><font color='green'> PASSED </font></b>");
+        }
+
+        ExtentReportManager.captureScreenshot(driver, result);
+        tearDown();
     }
 }

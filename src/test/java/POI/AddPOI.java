@@ -28,7 +28,7 @@ public class AddPOI extends BaseTest {
         webSteps.click("POI_tab");
     }
 
-    @Test
+    @Test(priority = 1)
     public void createPOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Create POI");
 
@@ -53,7 +53,7 @@ public class AddPOI extends BaseTest {
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
-    @Test
+    @Test(priority = 2)
     public void searchPOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Search POI");
 
@@ -64,7 +64,7 @@ public class AddPOI extends BaseTest {
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
-    @Test
+    @Test(priority = 3)
     public void deletePOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Delete POI");
 

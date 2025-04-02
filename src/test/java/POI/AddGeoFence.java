@@ -16,7 +16,7 @@ public class AddGeoFence extends BaseTest {
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
-        ExtentReportManager.startTest("Create POI with valid information", "<b>Create POI</b>");
+        ExtentReportManager.startTest("Create Geofence with valid information", "<b>Create geofence</b>");
         loadUrl();
         ExtentReportManager.testSteps("<b><font color='blue'>Opened the application URL</font></b>");
 
@@ -40,25 +40,22 @@ public class AddGeoFence extends BaseTest {
         webSteps.clickOnPointOfMap(162, -126);
         webSteps.clickOnPointOfMap(200, -110); // Closing the polygon
 
+        webSteps.waitUntilElementToBeClickable("Geo_name");
+        webSteps.type("Restricted Area", "Geo_name");
+        webSteps.click("Open_colorPicker");
+        webSteps.click("Color");
+        webSteps.click("Geo_saveBtn");
+
     }
 
     @AfterMethod
     public void tearDownBrowser(ITestResult result) {
-
-        if (result.getStatus() == ITestResult.FAILURE) {
-            ExtentReportManager
-                    .logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
-        } else {
-            ExtentReportManager.logPass("✅ <b><font color='green'> PASSED </font></b>");
-        }
-
-        ExtentReportManager.captureScreenshot(driver, result);
-        tearDown();
+        configureTestReport(result);
     }
 
     @AfterSuite
     public void finalizeReport() {
-        ExtentReportManager.flushReport(); // Ensures the report is generated
-        ExtentReportManager.openReport(); // Opens the report automatically
+        ExtentReportManager.flushReport();
+        ExtentReportManager.openReport();
     }
 }
