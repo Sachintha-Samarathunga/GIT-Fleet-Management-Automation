@@ -36,6 +36,8 @@ public class BaseTest {
                 break;
             default:
                 throw new RuntimeException("Browser is not supported: " + browser);
+                // Sample comment
+                // Sample comment 02
         }
     }
 
