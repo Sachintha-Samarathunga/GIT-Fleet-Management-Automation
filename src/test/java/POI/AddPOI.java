@@ -84,21 +84,13 @@ public class AddPOI extends BaseTest {
 
     @AfterMethod
     public void tearDownBrowser(ITestResult result) {
-
-        if (result.getStatus() == ITestResult.FAILURE) {
-            ExtentReportManager.logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
-        } else {
-            ExtentReportManager.logPass("✅ <b><font color='green'> PASSED </font></b>");
-        }
-
-        ExtentReportManager.captureScreenshot(driver, result);
-        tearDown();
+        configureTestReport(result);
     }
 
     @AfterSuite
     public void finalizeReport() {
-        ExtentReportManager.flushReport(); // Ensures the report is generated
-        ExtentReportManager.openReport();  // Opens the report automatically
+        ExtentReportManager.flushReport();
+        ExtentReportManager.openReport();  
     }
 
 
