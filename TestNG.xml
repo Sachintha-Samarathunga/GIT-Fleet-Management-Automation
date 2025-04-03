@@ -7,7 +7,10 @@
     <test name="DataProviderTest">
 
         <classes>
-            <class name="Login.LoginPositive"/>
+            <class name="Positive.Login"/>
+            <class name="Positive.ClickObject"/>
+            <class name="Positive.POI"/>
+            <class name="Positive.Geofence"/>
         </classes>
     </test>
 </suite>

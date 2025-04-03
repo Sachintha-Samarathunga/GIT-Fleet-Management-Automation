@@ -1,7 +1,6 @@
-package Map;
+package Positive;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import utils.BaseTest;
@@ -10,11 +9,7 @@ import utils.ExtentReportManager;
 import java.io.IOException;
 import java.time.Duration;
 
-public class Map extends BaseTest {
-    @BeforeSuite
-    public void setupReport() throws InterruptedException {
-        ExtentReportManager.initReport();
-    }
+public class ClickObject extends BaseTest {
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
@@ -36,16 +31,5 @@ public class Map extends BaseTest {
         webSteps.dragTheMap(300, 200);
         driver.findElement(By.xpath("//div[contains(@style, 'touch-action: pan-x pan-y')]//child::img")).click();
         webSteps.waiting();
-    }
-
-    @AfterMethod
-    public void tearDownBrowser(ITestResult result) {
-        configureTestReport(result);
-    }
-
-    @AfterSuite
-    public void finalizeReport() {
-        ExtentReportManager.flushReport();
-        ExtentReportManager.openReport();
     }
 }

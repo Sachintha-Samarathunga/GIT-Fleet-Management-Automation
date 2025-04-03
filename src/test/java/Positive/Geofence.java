@@ -1,4 +1,4 @@
-package POI;
+package Positive;
 
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -8,12 +8,7 @@ import utils.ExtentReportManager;
 
 import java.io.IOException;
 
-public class AddGeoFence extends BaseTest {
-
-    @BeforeSuite
-    public void setupReport() {
-        ExtentReportManager.initReport();
-    }
+public class Geofence extends BaseTest {
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
@@ -88,16 +83,5 @@ public class AddGeoFence extends BaseTest {
 
         Assert.assertEquals("Geofence has been created successfully!", webSteps.getText("Toast_message"));
 
-    }
-
-    @AfterMethod
-    public void tearDownBrowser(ITestResult result) {
-        configureTestReport(result);
-    }
-
-    @AfterSuite
-    public void finalizeReport() {
-        ExtentReportManager.flushReport();
-        ExtentReportManager.openReport();
     }
 }

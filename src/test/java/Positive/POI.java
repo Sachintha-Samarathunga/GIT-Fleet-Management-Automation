@@ -1,19 +1,13 @@
-package POI;
+package Positive;
 
 import org.testng.Assert;
-import org.testng.ITestResult;
 import org.testng.annotations.*;
 import utils.BaseTest;
 import utils.ExtentReportManager;
 
 import java.io.IOException;
 
-public class AddPOI extends BaseTest {
-
-    @BeforeSuite
-    public void setupReport() {
-        ExtentReportManager.initReport();
-    }
+public class POI extends BaseTest {
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
@@ -80,17 +74,6 @@ public class AddPOI extends BaseTest {
 
         Assert.assertEquals("Poi item has been deleted successfully!", webSteps.getText("Toast_message"), "Passed");
         System.out.println("Test passed: Actual and expected messages match!");
-    }
-
-    @AfterMethod
-    public void tearDownBrowser(ITestResult result) {
-        configureTestReport(result);
-    }
-
-    @AfterSuite
-    public void finalizeReport() {
-        ExtentReportManager.flushReport();
-        ExtentReportManager.openReport();
     }
 
 }
