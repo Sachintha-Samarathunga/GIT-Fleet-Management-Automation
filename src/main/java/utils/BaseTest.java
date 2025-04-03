@@ -10,11 +10,10 @@ import org.testng.ITestResult;
 
 import javax.swing.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import static dataProviders.configFileReader.getPropertyValue;
+
 
 public class BaseTest {
     protected static String browser = null;
@@ -87,6 +86,8 @@ public class BaseTest {
         return options[choice].toString().toLowerCase();
     }
 
+
+    // common method for extent report configuration
     protected void configureTestReport(@NotNull ITestResult result){
         if (result.getStatus() == ITestResult.FAILURE) {
             ExtentReportManager
