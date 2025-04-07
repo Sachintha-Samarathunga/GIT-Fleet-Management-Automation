@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static dataProviders.repositoryFileReader.constructElement;
@@ -172,4 +173,47 @@ public class webSteps {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(xpath));
     }
+
+    public void implicitWait(String locator){
+        By xpath = constructElement(findElementRepo(locator));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+
+            wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
+        } catch (TimeoutException e) {
+            System.out.println("Element not found after login: " + e.getMessage());
+
+        }
+    }
+
+    // Helper method to generate a random string
+    public String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder result = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            result.append(characters.charAt(index));
+        }
+        return result.toString();
+    }
+
+    //date picker
+    public void selectDate(String datePickerLocator, String date) throws InterruptedException {
+
+        click(datePickerLocator);
+
+        // Wait for the calendar to be visiblee
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[contains(@role, 'grid')]")));
+
+        // Locate the button for the specified date
+        String dateButtonXPath = String.format("//button[@name='day' and text()='%s']", date);
+        WebElement dateButton = driver.findElement(By.xpath(dateButtonXPath));
+
+        // Click the date button
+        dateButton.click();
+        waiting();
+    }
+
 }
