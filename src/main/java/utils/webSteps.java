@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.Properties;
@@ -214,6 +215,36 @@ public class webSteps {
         // Click the date button
         dateButton.click();
         waiting();
+    }
+
+    // Common method to upload a file
+    public void uploadFile(String filePath, String locator) throws InterruptedException {
+
+        click(locator);
+
+        String data = "C:\\Users\\Sachintha\\Videos\\"+filePath;
+        StringSelection selection = new StringSelection(data);
+
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+
+        try {
+            waiting();
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+
+            waiting();
+
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+
+            waiting();
+
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

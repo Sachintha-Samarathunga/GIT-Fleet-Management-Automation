@@ -39,6 +39,10 @@ public class SubAccount extends BaseTest {
         webSteps.select("sc_country", 2, 1);
         webSteps.select("sc_state", 3, 1);
 
+        webSteps.uploadFile("profileImage.jpg", "sc_profileImage");
+        webSteps.scrollToElement("sc_state");
+        webSteps.uploadFile("document.pdf", "sc_document");
+
         webSteps.scrollToElement("scf_AddBtn");
 
         webSteps.type("Sachintha", "scp_firstName");
@@ -50,6 +54,8 @@ public class SubAccount extends BaseTest {
         webSteps.type("971501234567","scp_whatsappNum");
         webSteps.select("scp_country", 2, 1);
         webSteps.select("scp_state", 3, 1);
+
+        webSteps.uploadFile("companyLogo.jpg", "scp_companyLogo");
     }
 
 }
