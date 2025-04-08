@@ -1,16 +1,23 @@
 package utils;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import javax.swing.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+
+
 
 public class BaseTest {
     protected static String browser = null;
@@ -18,8 +25,23 @@ public class BaseTest {
     protected String baseUrl;
     protected webSteps webSteps;
 
+    @BeforeSuite
+    public void setupReport() {
+        ExtentReportManager.initReport();
+    }
+
+    @AfterMethod
+    public void tearDownBrowser(ITestResult result) {
+        configureTestReport(result);
+    }
+
+    @AfterSuite
+    public void finalizeReport() {
+        ExtentReportManager.flushReport();
+        ExtentReportManager.openReport();
+    }
+
     public void setUpBrowser() {
-        // Only ask for the browser if it's not already set
         if (browser == null) {
             browser = getUserBrowserInput();
         }
@@ -44,7 +66,7 @@ public class BaseTest {
         FileInputStream fis = new FileInputStream("src/main/resources/config.properties");
         properties.load(fis);
         baseUrl = properties.getProperty("baseUrl");
-        // Set up browser (this will only ask for user input once)
+
         setUpBrowser();
         webSteps = new webSteps(driver);
 
@@ -82,5 +104,19 @@ public class BaseTest {
         }
 
         return options[choice].toString().toLowerCase();
+    }
+
+
+    // common method for extent report configuration
+    protected void configureTestReport(@NotNull ITestResult result){
+        if (result.getStatus() == ITestResult.FAILURE) {
+            ExtentReportManager
+                    .logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
+        } else {
+            ExtentReportManager.logPass("✅ <b><font color='green'> PASSED </font></b>");
+        }
+
+        ExtentReportManager.captureScreenshot(driver, result);
+        tearDown();
     }
 }

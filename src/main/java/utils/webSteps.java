@@ -1,18 +1,17 @@
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static dataProviders.repositoryFileReader.constructElement;
@@ -22,6 +21,7 @@ public class webSteps {
     protected static WebDriver driver;
     private final String email;
     private final String password;
+
 
     public webSteps(WebDriver driver) {
         webSteps.driver = driver;
@@ -62,11 +62,35 @@ public class webSteps {
     public void clickOnPointOfMap(int x,int y) throws InterruptedException {
         By xpath = constructElement(findElementRepo("Main_Map"));
         WebElement map = driver.findElement(xpath);
+        Actions actions = new Actions(driver);
+
+        actions.moveToElement(map, x, y).click().perform();
+        waiting();
+    }
+
+    public void zoomInMap() throws InterruptedException {
+        By xpath = constructElement(findElementRepo("Main_Map"));
+        WebElement map = driver.findElement(xpath);
+
+        Actions actions = new Actions(driver);
+        for (int i = 0; i < 3; i++) {  // Adjust zoom level (increase/decrease iterations)
+            actions.moveToElement(map).sendKeys(Keys.chord(Keys.CONTROL, Keys.ADD)).perform();
+            Thread.sleep(1000);
+        }
+        waiting();
+        waiting();
+    }
+
+    public void dragTheMap(int x, int y) throws InterruptedException {
+        By xpath = constructElement(findElementRepo("Main_Map"));
+        WebElement map = driver.findElement(xpath);
 
         Actions actions = new Actions(driver);
         actions.moveToElement(map, x, y).click().perform();
         waiting();
+        waiting();
     }
+
 
     // Common method to get text from an element
     public String getText(String locator) {
@@ -150,4 +174,77 @@ public class webSteps {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(xpath));
     }
+
+    public void implicitWait(String locator){
+        By xpath = constructElement(findElementRepo(locator));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+
+            wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
+        } catch (TimeoutException e) {
+            System.out.println("Element not found after login: " + e.getMessage());
+
+        }
+    }
+
+    // Helper method to generate a random string
+    public String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder result = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            result.append(characters.charAt(index));
+        }
+        return result.toString();
+    }
+
+    //date picker
+    public void selectDate(String datePickerLocator, String date) throws InterruptedException {
+
+        click(datePickerLocator);
+
+        // Wait for the calendar to be visiblee
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[contains(@role, 'grid')]")));
+
+        // Locate the button for the specified date
+        String dateButtonXPath = String.format("//button[@name='day' and text()='%s']", date);
+        WebElement dateButton = driver.findElement(By.xpath(dateButtonXPath));
+
+        // Click the date button
+        dateButton.click();
+        waiting();
+    }
+
+    // Common method to upload a file
+    public void uploadFile(String filePath, String locator) throws InterruptedException {
+
+        click(locator);
+
+        String data = "C:\\Users\\Sachintha\\Videos\\"+filePath;
+        StringSelection selection = new StringSelection(data);
+
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+
+        try {
+            waiting();
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+
+            waiting();
+
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+
+            waiting();
+
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

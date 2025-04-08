@@ -1,4 +1,4 @@
-package Login;
+package Positive;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -8,12 +8,8 @@ import org.testng.ITestResult;
 
 import java.io.IOException;
 
-public class LoginPositive extends BaseTest {
+public class Login extends BaseTest {
 
-    @BeforeSuite
-    public void setupReport() {
-        ExtentReportManager.initReport();
-    }
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
@@ -37,23 +33,5 @@ public class LoginPositive extends BaseTest {
 //        System.out.println("Test passed: Actual and expected messages match!");
     }
 
-    @AfterMethod
-    public void tearDownBrowser(ITestResult result) {
-
-        if (result.getStatus() == ITestResult.FAILURE) {
-            ExtentReportManager.logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
-        } else {
-            ExtentReportManager.logPass("✅ <b><font color='green'> PASSED </font></b>");
-        }
-
-        ExtentReportManager.captureScreenshot(driver, result);
-        tearDown();
-    }
-
-    @AfterSuite
-    public void finalizeReport() {
-        ExtentReportManager.flushReport(); // Ensures the report is generated
-        ExtentReportManager.openReport();  // Opens the report automatically
-    }
 
 }

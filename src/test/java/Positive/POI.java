@@ -1,19 +1,13 @@
-package POI;
+package Positive;
 
 import org.testng.Assert;
-import org.testng.ITestResult;
 import org.testng.annotations.*;
 import utils.BaseTest;
 import utils.ExtentReportManager;
 
 import java.io.IOException;
 
-public class AddPOI extends BaseTest {
-
-    @BeforeSuite
-    public void setupReport() {
-        ExtentReportManager.initReport();
-    }
+public class POI extends BaseTest {
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
@@ -28,7 +22,7 @@ public class AddPOI extends BaseTest {
         webSteps.click("POI_tab");
     }
 
-    @Test
+    @Test(priority = 1)
     public void createPOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Create POI");
 
@@ -53,7 +47,7 @@ public class AddPOI extends BaseTest {
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
-    @Test
+    @Test(priority = 2)
     public void searchPOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Search POI");
 
@@ -64,7 +58,7 @@ public class AddPOI extends BaseTest {
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
-    @Test
+    @Test(priority = 3)
     public void deletePOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Delete POI");
 
@@ -81,25 +75,5 @@ public class AddPOI extends BaseTest {
         Assert.assertEquals("Poi item has been deleted successfully!", webSteps.getText("Toast_message"), "Passed");
         System.out.println("Test passed: Actual and expected messages match!");
     }
-
-    @AfterMethod
-    public void tearDownBrowser(ITestResult result) {
-
-        if (result.getStatus() == ITestResult.FAILURE) {
-            ExtentReportManager.logFail("❌ <b><font color='red'> FAILED : </font></b>" + result.getThrowable().getMessage());
-        } else {
-            ExtentReportManager.logPass("✅ <b><font color='green'> PASSED </font></b>");
-        }
-
-        ExtentReportManager.captureScreenshot(driver, result);
-        tearDown();
-    }
-
-    @AfterSuite
-    public void finalizeReport() {
-        ExtentReportManager.flushReport(); // Ensures the report is generated
-        ExtentReportManager.openReport();  // Opens the report automatically
-    }
-
 
 }
