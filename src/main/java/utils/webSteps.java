@@ -8,8 +8,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -86,11 +88,11 @@ public class webSteps {
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
         // Loop to simulate smooth zoom with JavaScript wheel events
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             WebElement map = driver.findElement(xpath); // ✅ Use your actual XPath here
 
             js.executeScript(
-                    "arguments[0].dispatchEvent(new WheelEvent('wheel', { deltaY: -100, bubbles: true }));",
+                    "arguments[0].dispatchEvent(new WheelEvent('wheel', { deltaY: -20, bubbles: true }));",
                     map
             );
 
@@ -264,6 +266,20 @@ public class webSteps {
         }
     }
 
+    public void dragMap() throws AWTException, InterruptedException {
+        Robot robot = new Robot();
+
+        robot.mouseMove(1350,350);
+        waiting();
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+
+        for (int i = 0; i < 10; i++) {
+            robot.mouseMove(1350 - (i * 40), 250 + (i * 20));
+            Thread.sleep(50);
+        }
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        waiting();
+    }
 
 
 }
