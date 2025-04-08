@@ -81,6 +81,23 @@ public class webSteps {
         waiting();
     }
 
+    public void zoomMap() throws InterruptedException {
+        By xpath = constructElement(findElementRepo("Main_Map"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // Loop to simulate smooth zoom with JavaScript wheel events
+        for (int i = 0; i < 5; i++) {
+            WebElement map = driver.findElement(xpath); // ✅ Use your actual XPath here
+
+            js.executeScript(
+                    "arguments[0].dispatchEvent(new WheelEvent('wheel', { deltaY: -100, bubbles: true }));",
+                    map
+            );
+
+            Thread.sleep(500); // Delay between scrolls for smoothness
+        }
+    }
+
     public void dragTheMap(int x, int y) throws InterruptedException {
         By xpath = constructElement(findElementRepo("Main_Map"));
         WebElement map = driver.findElement(xpath);
@@ -246,5 +263,7 @@ public class webSteps {
             throw new RuntimeException(e);
         }
     }
+
+
 
 }
