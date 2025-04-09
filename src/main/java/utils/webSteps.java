@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Properties;
@@ -254,6 +255,46 @@ public class webSteps {
             robot.keyRelease(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_CONTROL);
 
+            waiting();
+
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+
+            waiting();
+
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Common method to upload a file from resources folder
+    public void uploadFile01(String fileName, String locator) throws InterruptedException {
+        click(locator);
+
+        // Construct path to the image inside resources folder
+        String resourcePath = "src/main/resources/images/" + fileName;
+        File file = new File(resourcePath);
+
+        if (!file.exists()) {
+            throw new RuntimeException("File not found: " + resourcePath);
+        }
+
+        // Get absolute path
+        String absolutePath = file.getAbsolutePath();
+
+        // Copy path to clipboard
+        StringSelection selection = new StringSelection(absolutePath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+
+        try {
+            waiting();
+            Robot robot = new Robot();
+
+            // Simulate Ctrl + V and Enter
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
             waiting();
 
             robot.keyPress(KeyEvent.VK_ENTER);

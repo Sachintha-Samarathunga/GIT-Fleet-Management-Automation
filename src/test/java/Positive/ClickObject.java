@@ -30,8 +30,8 @@ public class ClickObject extends BaseTest {
 
         webSteps.dragMap();
         webSteps.zoomMap();
-////        webSteps.dragTheMap(300, 200);
-//        driver.findElement(By.xpath("//div[contains(@style, 'touch-action: pan-x pan-y')]//child::img")).click();
+//      webSteps.dragTheMap(300, 200);
+//      driver.findElement(By.xpath("//div[contains(@style, 'touch-action: pan-x pan-y')]//child::img")).click();
         webSteps.waiting();
     }
 }
