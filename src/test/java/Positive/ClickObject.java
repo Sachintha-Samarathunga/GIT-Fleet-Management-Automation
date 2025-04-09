@@ -6,6 +6,7 @@ import org.testng.annotations.*;
 import utils.BaseTest;
 import utils.ExtentReportManager;
 
+import java.awt.*;
 import java.io.IOException;
 import java.time.Duration;
 
@@ -24,12 +25,13 @@ public class ClickObject extends BaseTest {
     }
 
     @Test
-    public void loginWithValidCredentials() throws InterruptedException {
+    public void loginWithValidCredentials() throws InterruptedException, AWTException {
         ExtentReportManager.testSteps("Verifying Map Controls...");
 
+        webSteps.dragMap();
         webSteps.zoomMap();
-        webSteps.dragTheMap(300, 200);
-        driver.findElement(By.xpath("//div[contains(@style, 'touch-action: pan-x pan-y')]//child::img")).click();
+//      webSteps.dragTheMap(300, 200);
+//      driver.findElement(By.xpath("//div[contains(@style, 'touch-action: pan-x pan-y')]//child::img")).click();
         webSteps.waiting();
     }
 }
