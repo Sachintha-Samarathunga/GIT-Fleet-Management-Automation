@@ -188,6 +188,27 @@ public class webSteps {
         waiting();
     }
 
+    public void dragMap() throws AWTException, InterruptedException {
+        Robot robot = new Robot();
+
+        robot.mouseMove(1350,350);
+        waiting();
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+
+        for (int i = 0; i < 10; i++) {
+            robot.mouseMove(1350 - (i * 40), 250 + (i * 20));
+            Thread.sleep(50);
+        }
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        waiting();
+    }
+
+    public void scrollMouse(int x) throws AWTException {
+        Robot robot = new Robot();
+        robot.mouseWheel(5);
+    }
+
+
     // Method for wait until an element to be clickable
     public void waitUntilElementToBeClickable(String locator){
         By xpath = constructElement(findElementRepo(locator));
@@ -237,38 +258,38 @@ public class webSteps {
         waiting();
     }
 
-    // Common method to upload a file
-    public void uploadFile(String filePath, String locator) throws InterruptedException {
-
-        click(locator);
-
-        String data = "C:\\Users\\Sachintha\\Videos\\"+filePath;
-        StringSelection selection = new StringSelection(data);
-
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
-
-        try {
-            waiting();
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-
-            waiting();
-
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-
-            waiting();
-
-        } catch (AWTException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    // Common method to upload a file
+//    public void uploadFile(String filePath, String locator) throws InterruptedException {
+//
+//        click(locator);
+//
+//        String data = "C:\\Users\\Sachintha\\Videos\\"+filePath;
+//        StringSelection selection = new StringSelection(data);
+//
+//        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+//
+//        try {
+//            waiting();
+//            Robot robot = new Robot();
+//            robot.keyPress(KeyEvent.VK_CONTROL);
+//            robot.keyPress(KeyEvent.VK_V);
+//            robot.keyRelease(KeyEvent.VK_V);
+//            robot.keyRelease(KeyEvent.VK_CONTROL);
+//
+//            waiting();
+//
+//            robot.keyPress(KeyEvent.VK_ENTER);
+//            robot.keyRelease(KeyEvent.VK_ENTER);
+//
+//            waiting();
+//
+//        } catch (AWTException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     // Common method to upload a file from resources folder
-    public void uploadFile01(String fileName, String locator) throws InterruptedException {
+    public void uploadFile(String fileName, String locator) throws InterruptedException {
         click(locator);
 
         // Construct path to the image inside resources folder
@@ -305,21 +326,6 @@ public class webSteps {
         } catch (AWTException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void dragMap() throws AWTException, InterruptedException {
-        Robot robot = new Robot();
-
-        robot.mouseMove(1350,350);
-        waiting();
-        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-
-        for (int i = 0; i < 10; i++) {
-            robot.mouseMove(1350 - (i * 40), 250 + (i * 20));
-            Thread.sleep(50);
-        }
-        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        waiting();
     }
 
 

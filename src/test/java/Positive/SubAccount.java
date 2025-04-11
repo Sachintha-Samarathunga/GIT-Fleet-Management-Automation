@@ -47,7 +47,7 @@ public class SubAccount extends BaseTest {
         webSteps.select("sc_country", 2, 1);
         webSteps.select("sc_state", 3, 1);
 
-//      webSteps.uploadFile01("profileImage.jpg", "sc_profileImage");
+//      webSteps.uploadFile("profileImage.jpg", "sc_profileImage");
         webSteps.scrollToElement("sc_state");
 //      webSteps.uploadFile("document.pdf", "sc_document");
 
@@ -63,7 +63,7 @@ public class SubAccount extends BaseTest {
         webSteps.select("scp_country", 2, 1);
         webSteps.select("scp_state", 3, 1);
 
-//      webSteps.uploadFile01("companyLogo.jpg", "scp_companyLogo");
+//      webSteps.uploadFile("companyLogo.jpg", "scp_companyLogo");
         webSteps.click("scf_AddBtn");
         Thread.sleep(5000);
 //
