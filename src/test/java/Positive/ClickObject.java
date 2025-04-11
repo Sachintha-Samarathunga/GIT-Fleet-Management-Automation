@@ -29,7 +29,8 @@ public class ClickObject extends BaseTest {
         ExtentReportManager.testSteps("Verifying Map Controls...");
 
         webSteps.dragMap();
-        webSteps.zoomMap();
+        webSteps.scrollMouse(-30);
+//      webSteps.zoomMap();
 //      webSteps.dragTheMap(300, 200);
 //      driver.findElement(By.xpath("//div[contains(@style, 'touch-action: pan-x pan-y')]//child::img")).click();
         webSteps.waiting();
