@@ -52,6 +52,12 @@ public class webSteps {
         waiting();
     }
 
+    public void clearInputField(String locator){
+        By xpath = constructElement(findElementRepo(locator));
+        WebElement inputField = driver.findElement(xpath);
+        inputField.clear();
+    }
+
 
     // Common method to click an element
     public void click(String locator) throws InterruptedException {
@@ -214,6 +220,13 @@ public class webSteps {
         By xpath = constructElement(findElementRepo(locator));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(xpath));
+    }
+
+    // Method for wait until an element to be visible
+    public void elementToBeVisible(String locator){
+        By xpath = constructElement(findElementRepo(locator));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(xpath));
     }
 
     public void implicitWait(String locator){

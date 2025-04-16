@@ -48,6 +48,35 @@ public class POI extends BaseTest {
     }
 
     @Test(priority = 2)
+    public void updatePOI() throws InterruptedException {
+        ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Update POI");
+
+        webSteps.click("POI_sb_action_btn");
+        ExtentReportManager.testSteps("Clicked Action Button");
+
+        webSteps.click("POI_sb_edit_btn");
+        ExtentReportManager.testSteps("Clicked Edit Button");
+
+        webSteps.elementToBeVisible("POI_name");
+        webSteps.clearInputField("POI_name");
+        webSteps.type("Coffee Shop", "POI_name");
+
+        webSteps.type("Updated Description", "POI_description");
+        webSteps.clearInputField("POI_description");
+        webSteps.click("POI_updatedIcon");
+
+        webSteps.click("POI_coordinatesArea");
+        webSteps.waitUntilElementToBeClickable("POI_editCoordinates");
+        webSteps.click("POI_editCoordinates");
+        webSteps.clickOnPointOfMap(250, -200);
+
+        webSteps.scrollToElement("POI_updateBtn");
+        webSteps.click("POI_updateBtn");
+        ExtentReportManager.testSteps("Clicked Update Button");
+
+    }
+
+    @Test(priority = 3)
     public void searchPOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Search POI");
 
@@ -58,7 +87,7 @@ public class POI extends BaseTest {
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void deletePOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Delete POI");
 
