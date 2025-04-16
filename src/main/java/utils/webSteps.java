@@ -44,19 +44,47 @@ public class webSteps {
     }
 
     // Common method to type text into an input field
+//    public void type(String text, String locator) throws InterruptedException {
+//        By xpath = constructElement(findElementRepo(locator));
+//        WebElement inputField = driver.findElement(xpath);
+//
+//        inputField.click();
+//        inputField.clear();
+//        inputField.sendKeys(text);
+//        waiting();
+//    }
+
     public void type(String text, String locator) throws InterruptedException {
         By xpath = constructElement(findElementRepo(locator));
         WebElement inputField = driver.findElement(xpath);
-        inputField.clear();
+
+        inputField.click();
+
+        String existingValue = inputField.getAttribute("value");
+        if (existingValue != null && !existingValue.isEmpty()) {
+            inputField.clear();
+            inputField.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        }
+
         inputField.sendKeys(text);
         waiting();
     }
 
-    public void clearInputField(String locator){
+
+    public void clearInputField(String locator) {
         By xpath = constructElement(findElementRepo(locator));
-        WebElement inputField = driver.findElement(xpath);
-        inputField.clear();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            WebElement inputField = wait.until(ExpectedConditions.elementToBeClickable(xpath));
+            inputField.click();
+            inputField.clear();
+            inputField.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        } catch (Exception e) {
+            System.out.println("Failed to clear input field: " + e.getMessage());
+        }
     }
+
 
 
     // Common method to click an element
