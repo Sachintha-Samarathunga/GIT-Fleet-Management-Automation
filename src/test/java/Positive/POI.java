@@ -58,19 +58,18 @@ public class POI extends BaseTest {
         ExtentReportManager.testSteps("Clicked Edit Button");
 
         webSteps.elementToBeVisible("POI_name");
-        webSteps.clearInputField("POI_name");
         webSteps.type("Coffee Shop", "POI_name");
 
         webSteps.type("Updated Description", "POI_description");
-        webSteps.clearInputField("POI_description");
         webSteps.click("POI_updatedIcon");
+
+        webSteps.scrollToElement("POI_updateBtn");
 
         webSteps.click("POI_coordinatesArea");
         webSteps.waitUntilElementToBeClickable("POI_editCoordinates");
         webSteps.click("POI_editCoordinates");
         webSteps.clickOnPointOfMap(250, -200);
 
-        webSteps.scrollToElement("POI_updateBtn");
         webSteps.click("POI_updateBtn");
         ExtentReportManager.testSteps("Clicked Update Button");
 
