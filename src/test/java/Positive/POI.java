@@ -47,6 +47,7 @@ public class POI extends BaseTest {
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
+    // Update POI
     @Test(priority = 2)
     public void updatePOI() throws InterruptedException {
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Update POI");
