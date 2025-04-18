@@ -77,6 +77,23 @@ public class POI extends BaseTest {
     }
 
     @Test(priority = 3)
+    public void verifyPOIVisibilityOnTheMap() throws InterruptedException {
+        ExtentReportManager.startTest("Verify POI visibility on the map", "<b>Verify POI visibility</b>");
+        ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Verify POI visibility");
+
+        webSteps.click("updated_POI_checkbox");
+        webSteps.click("mapsControl_POIBtn");
+
+        webSteps.waiting();
+
+        webSteps.clickOnPointOfMap(250, -150);
+        webSteps.waiting();
+//        boolean POICardHeader = webSteps.getText("update_POI_cardH3").contains("Coffee Shop");
+//        Assert.assertTrue(POICardHeader, "Verified POI visibility on the map");
+    }
+
+
+    @Test(priority = 4)
     public void searchPOI() throws InterruptedException {
         ExtentReportManager.startTest("Search an existing POI from the list", "<b>Search POI</b>");
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Search POI");
@@ -88,7 +105,7 @@ public class POI extends BaseTest {
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void deletePOI() throws InterruptedException {
         ExtentReportManager.startTest("Delete an existing POI from the list", "<b>Delete POI</b>");
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Delete POI");
