@@ -11,7 +11,6 @@ public class POI extends BaseTest {
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
-        ExtentReportManager.startTest("Create POI with valid information", "<b>Create POI</b>");
         loadUrl();
         ExtentReportManager.testSteps("<b><font color='blue'>Opened the application URL</font></b>");
 
@@ -24,6 +23,7 @@ public class POI extends BaseTest {
 
     @Test(priority = 1)
     public void createPOI() throws InterruptedException {
+        ExtentReportManager.startTest("Create POI with valid information", "<b>Create POI</b>");
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Create POI");
 
         webSteps.click("addPOI_button");
@@ -47,9 +47,9 @@ public class POI extends BaseTest {
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
-    // Update POI
     @Test(priority = 2)
     public void updatePOI() throws InterruptedException {
+        ExtentReportManager.startTest("Update POI with valid information", "<b>Update POI</b>");
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Update POI");
 
         webSteps.click("POI_sb_action_btn");
@@ -78,20 +78,22 @@ public class POI extends BaseTest {
 
     @Test(priority = 3)
     public void searchPOI() throws InterruptedException {
+        ExtentReportManager.startTest("Search an existing POI from the list", "<b>Search POI</b>");
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Search POI");
 
-        webSteps.type("Bus Stop", "SearchBar");
+        webSteps.type("Coffee Shop", "SearchBar");
         ExtentReportManager.testSteps("Searched for a POI in the search bar");
 
-        Assert.assertEquals("Bus Stop", webSteps.getText("first_item_label"), "Passed");
+        Assert.assertEquals("Coffee Shop", webSteps.getText("first_item_label"), "Passed");
         System.out.println("Test passed: Actual and expected messages match!");
     }
 
     @Test(priority = 4)
     public void deletePOI() throws InterruptedException {
+        ExtentReportManager.startTest("Delete an existing POI from the list", "<b>Delete POI</b>");
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Delete POI");
 
-        webSteps.click("POI_sb_action_btn");
+        webSteps.click("POI_sb_afterEdit_action_btn");
         ExtentReportManager.testSteps("Clicked Action Button");
 
         webSteps.click("POI_sb_delete_btn");
