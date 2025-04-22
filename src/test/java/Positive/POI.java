@@ -5,6 +5,8 @@ import org.testng.annotations.*;
 import utils.BaseTest;
 import utils.ExtentReportManager;
 
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.io.IOException;
 
 public class POI extends BaseTest {
@@ -77,19 +79,25 @@ public class POI extends BaseTest {
     }
 
     @Test(priority = 3)
-    public void verifyPOIVisibilityOnTheMap() throws InterruptedException {
+    public void verifyPOIVisibilityOnTheMap() throws InterruptedException, AWTException {
         ExtentReportManager.startTest("Verify POI visibility on the map", "<b>Verify POI visibility</b>");
         ExtentReportManager.testSteps("<b><font color='blue'>Test Case : </font></b>"+ "Verify POI visibility");
+
+        Robot robot = new Robot();
 
         webSteps.click("updated_POI_checkbox");
         webSteps.click("mapsControl_POIBtn");
 
         webSteps.waiting();
 
-        webSteps.clickOnPointOfMap(250, -150);
+//        webSteps.clickOnPointOfMap(250, -150);
+        robot.mouseMove(1255,260);
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         webSteps.waiting();
-//        boolean POICardHeader = webSteps.getText("update_POI_cardH3").contains("Coffee Shop");
-//        Assert.assertTrue(POICardHeader, "Verified POI visibility on the map");
+        webSteps.elementToBeVisible("update_POI_cardH3");
+        boolean POICardHeader = webSteps.getText("update_POI_cardH3").contains("Coffee Shop");
+        Assert.assertTrue(POICardHeader, "Verified POI visibility on the map");
     }
 
 
