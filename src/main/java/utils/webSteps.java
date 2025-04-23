@@ -43,17 +43,6 @@ public class webSteps {
         waiting();
     }
 
-    // Common method to type text into an input field
-//    public void type(String text, String locator) throws InterruptedException {
-//        By xpath = constructElement(findElementRepo(locator));
-//        WebElement inputField = driver.findElement(xpath);
-//
-//        inputField.click();
-//        inputField.clear();
-//        inputField.sendKeys(text);
-//        waiting();
-//    }
-
     public void type(String text, String locator) throws InterruptedException {
         By xpath = constructElement(findElementRepo(locator));
         WebElement inputField = driver.findElement(xpath);
